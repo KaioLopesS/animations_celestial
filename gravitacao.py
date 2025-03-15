@@ -1,0 +1,133 @@
+from manim import *
+import numpy as np
+import random
+
+
+config.pixel_height = 1920
+config.pixel_width = 1080
+config.frame_height = 16.0
+config.frame_width = 9.0
+
+class gravitacao(MovingCameraScene):
+    def construct(self):
+        self.camera.frame.save_state()
+        instagram = Text('@CelestialEquations').scale(0.4).shift(4*UP).set_color_by_gradient(YELLOW, WHITE)
+        titulo = Text("A Gravitação Universal de Newton", font_size=40).set_color_by_gradient(YELLOW, WHITE)
+        self.play(Write(titulo))
+        self.play(Write(instagram))
+        self.wait(1)
+        self.remove(titulo)
+        self.wait(6)
+        
+        circulo = Dot(point=UP * 3, color=RED, radius=0.3)
+        self.play(FadeIn(circulo))
+
+    
+        self.play(circulo.animate.shift(DOWN * 6), run_time=3, rate_func=smooth)
+        self.wait(6)
+        self.remove(circulo)
+        forca_9 = Text("Força Gravitacional", font_size=50).set_color_by_gradient(YELLOW, WHITE)
+        self.play(Write(forca_9))
+        self.wait(2)
+        self.remove(forca_9)
+        circulo1 = Dot(point=LEFT * 3, color=YELLOW, radius=1)
+        circulo2 = Dot(point=RIGHT * 3, color=WHITE, radius=1)
+        massa1 = Text("M", font_size=30).next_to(circulo1, UP)
+        massa2 = Text("m", font_size=30).next_to(circulo2, UP)
+        linha = Line(start=circulo1.get_center(), end=circulo2.get_center(), color=WHITE).shift(2*DOWN)
+        r = Text("r", font_size=30).next_to(linha, DOWN)
+        forca1 = Arrow(start=circulo1.get_center(), end=circulo1.get_center() + 0.5 * (circulo2.get_center() - circulo1.get_center()), buff=0.5, color=YELLOW)
+        forca2 = Arrow(start=circulo2.get_center(), end=circulo2.get_center() + 0.5 * (circulo1.get_center() - circulo2.get_center()), buff=0.5, color=WHITE)
+        F1 = Text("F", font_size=30).next_to(forca1, UP)
+        F2 = Text("F", font_size=30).next_to(forca2, UP)
+        gravitacional_force = MathTex(r"F = \frac{G \cdot M \cdot m}{r^2}").shift(3*UP+RIGHT)
+        G = MathTex(r"G = 6,67 \cdot 10^{-11} \, \text{Nm}^2/\text{kg}^2").shift(2*DOWN)
+         
+        self.wait(2)
+        self.play(FadeIn(circulo1), FadeIn(circulo2))
+        self.wait(5)
+        self.play(Write(massa1), Write(massa2))
+        self.wait(1)
+        self.play(Create(linha))
+        self.play(Write(r))
+        self.wait(2)
+        self.play(Create(forca1))
+        self.play(Create(forca2))
+        self.wait(1)
+        self.play(Write(F1))
+        self.play(Write(F2))
+        self.wait(10)
+        self.play(Write(gravitacional_force))
+        self.wait(2)
+        self.remove(circulo1, circulo2, massa1, massa2, linha, r, forca1, forca2, F1, F2)
+        self.play(gravitacional_force.animate.shift(3*DOWN+LEFT))
+        self.wait(5)
+        self.play(Write(G))
+        self.wait(8)
+        self.remove(gravitacional_force, G)
+
+        aceleracao = Text("Aceleração da Gravidade", font_size=30).shift(2*UP).set_color_by_gradient(YELLOW, WHITE)
+
+        self.wait(1)
+
+        terra = Circle(radius=1.5, color=BLUE, fill_opacity=1).shift(DOWN)
+        self.play(FadeIn(terra))
+        self.wait(2)
+
+    
+        objeto = Dot(point=terra.get_center() + UP *1.7, color=WHITE, radius=0.2)
+        self.play(FadeIn(objeto))
+        self.wait(2)
+        linha_centro_borda = Line(start=terra.get_center(), end=terra.get_center() + UP * 1.5, color=BLACK)
+        self.play(Create(linha_centro_borda))
+        self.wait(2)
+        raio = Text("r", font_size=30).next_to(linha_centro_borda, RIGHT).set_color(BLACK)
+        self.play(Write(raio))
+        self.wait(1)
+        massa_terra = Text("M", font_size=30).next_to(terra, RIGHT).set_color(BLUE)
+        massa_objeto = Text("m", font_size =30, color =WHITE).next_to(objeto,UP)
+        self.play(FadeIn(massa_terra), FadeIn(massa_objeto))
+        self.wait(2)
+        grupo = VGroup(terra, objeto, linha_centro_borda, raio, massa_terra, massa_objeto)
+        self.play(grupo.animate.shift(LEFT * 3))
+        self.wait(2)
+        F_1 = MathTex(r"F = ma").shift(2*UP+2*RIGHT)
+        F_2 = MathTex(r"F = \frac{GMm}{r^2}").next_to(F_1, 2*RIGHT)
+        forca3 = Arrow(start=objeto.get_center(), end=terra.get_center() + 0.5 * (objeto.get_center() - terra.get_center()), buff=0.5, color=YELLOW)
+        F3 = Text("F", font_size=30).next_to(forca3, LEFT).set_color(YELLOW)
+        grupo2 = VGroup(F_1, F_2)
+        equacao_4 = MathTex(r"ma = \frac{GMm}{r^2}").shift(2*RIGHT)    
+        equacao_5 = MathTex(r"a = \frac{GM}{r^2}").next_to(equacao_4, DOWN)
+        equacao_6 = MathTex(r"g = \frac{GM}{r^2}").next_to(equacao_5, DOWN)
+        framebox_1 = SurroundingRectangle(F_1, buff = .1)
+        framebox_2 = SurroundingRectangle(F_2, buff=.1)   
+        equacao7 = MathTex(r"g = 9,8 \, m/s^2").shift(2*DOWN)
+        framebox_3 = SurroundingRectangle(equacao7, buff=.1)
+        
+        self.play(Create(forca3))
+        self.wait(1)
+        self.play(Write(F3))
+        self.wait(2)
+        self.play(Write(F_1))
+        self.wait(4)
+        self.play(Write(F_2))
+        self.play(Create(framebox_1), Create(framebox_2))
+        self.wait(2)
+        self.play(Write(equacao_4))
+        self.wait(2)
+        self.play(Write(equacao_5))
+        self.wait(2)
+        self.play(Write(equacao_6))
+        self.wait(4)
+        self.remove(grupo, forca3, F3, grupo2, equacao_4, equacao_5, framebox_1, framebox_2,F_1,F_2)
+        self.play(equacao_6.animate.shift(3*UP+2*LEFT))
+        self.wait(2)
+        self.play(Write(aceleracao))
+        self.wait(1)
+        self.play(Write(equacao7))
+        self.wait(5)
+        self.play(Create(framebox_3))
+        self.wait(3)
+
+
+        

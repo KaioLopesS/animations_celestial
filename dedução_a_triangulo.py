@@ -1,0 +1,81 @@
+from manim import *
+class triangulo(Scene):
+    def construct(self):
+        #variaveis
+        titulo = Tex(r"Formas de calcular a Área de um Triângulo Qualquer")
+        equacao = MathTex(r'A = \frac{bh}{2}').move_to(RIGHT * 2.4).scale(2)
+        triangulo1 = Triangle(color=BLUE_B).shift(LEFT*2).scale(3.5)
+        p1, p2, p3 = triangulo1.get_vertices()
+        lado_a = Line(p2, p3, color=RED)
+        lado_a_nome = MathTex("b").next_to(lado_a, DOWN)
+        ponto_medio_a = (p2 + p3) / 2
+        altura = Line(p1, ponto_medio_a, color=WHITE)
+        altura_nome = MathTex("h").next_to(altura, RIGHT)
+        #triangulo1#
+        instagram = Tex('@CelestialEquations').scale(0.5).shift(RIGHT*5.5+3.5*DOWN)
+        self.play(Write(instagram))
+        self.play(Write(titulo))
+        self.wait(1)
+        self.remove(titulo, equacao )
+        self.play(Create(triangulo1))
+        self.wait(0.5)
+        self.play(Create(lado_a), Write(lado_a_nome))
+        self.play(Create(altura), Write(altura_nome))
+        self.play(Write(equacao))
+        self.wait(2)
+        self.remove(triangulo1, lado_a,lado_a_nome,altura,altura_nome,equacao  )
+        #triangulo2#
+        triangulo2= Triangle(color=GREEN).shift(LEFT*3).scale(3.5)
+        v1,v2,v3 = triangulo2.get_vertices()
+        angulo_arco = Arc(
+            radius=0.2, 
+            start_angle=-PI/4, 
+            angle=-PI/2, 
+            color= WHITE
+        ).move_arc_center_to(v1)
+        angulo_nome = MathTex(r"\theta ").next_to(angulo_arco, DOWN)
+        equacao2 = MathTex(r'A = \frac{absen(\theta)}{2}').move_to(RIGHT * 3).scale(1.5)
+        ladov1 = Line(v1,v3, color = RED)
+        ladov2 =Line(v1,v2, color = RED)
+        ladov1_nome = MathTex('a').shift(1*LEFT) 
+        ladov2_nome = MathTex('b').shift(5*LEFT)
+        self.play(FadeIn(triangulo2))
+        self.wait(0.5)
+        self.play(Create(ladov1), Write(ladov1_nome))
+        self.play(Create(ladov2), Write(ladov2_nome))
+        self.play(Create(angulo_arco), Write(angulo_nome))
+        self.wait(0.5)
+        self.play(Write(equacao2))
+        self.wait(1.8)
+        self.remove(angulo_nome,equacao2,angulo_arco,triangulo2,ladov1,ladov2,ladov1_nome,ladov2_nome)
+        #triângulo3
+        triangulo3 = Triangle(color=WHITE).shift(LEFT*3).scale(3.5)
+        titulo1 = Tex(r"Fórmula de Heron").shift(UP*3+RIGHT*2.5).scale(1.5)
+        equacao3 = MathTex(r'A = \sqrt{p(p-a)(p-b)(p-c)}').move_to(RIGHT * 3).scale(1)
+        equacao4 = MathTex(r'p =\frac{a+b+c}{2}').move_to(RIGHT * 3+ UP*1.5).scale(1)
+        b1,b2,b3 = triangulo3.get_vertices()
+        ladob1 = Line(b1,b3, color = RED)
+        ladob2 =Line(b1,b2, color = RED)
+        ladob3 = Line(b2,b3, color = RED)
+        ladob1_nome = MathTex('a').shift(LEFT)
+        ladob2_nome = MathTex('b').shift(5*LEFT)
+        ladob3_nome = MathTex('c').shift(2.8*DOWN+3*LEFT)
+        self.play(Write(titulo1))
+        self.wait(0.5)
+        self.play(Create(triangulo3))
+        self.wait(0.5)
+        self.play(Create(ladob1), Write(ladob1_nome))
+        self.play(Create(ladob2), Write(ladob2_nome))
+        self.play(Create(ladob3), Write(ladob3_nome))
+        self.wait(0.5)
+        self.play(Write(equacao4))
+        self.play(Write(equacao3))
+        self.wait(2.5)
+        self.remove(triangulo3, titulo1, equacao3, equacao4,ladob1,ladob2,ladob3,ladob1_nome,ladob2_nome,ladob3_nome)
+        Encerramento = Tex(r'Confira as deduções das equações no nosso canal do YouTube!')
+        encerramento2 = Tex(r'Não se esqueça de nos seguir no Instagram :)', color=RED).shift(1.2*DOWN)
+        self.play(Write(Encerramento))
+        self.play(Write(encerramento2))
+        self.wait(1.7)
+
+    
