@@ -1,6 +1,6 @@
 # Celestial Equations - Códigos das Animações
 
-Bem-vindo ao repositório oficial do **Celestial Equations**! Aqui você encontra todos os códigos utilizados para criar as animações de física e matemática do canal.
+Bem-vindo ao repositório oficial do **Celestial Equations**! Aqui você encontra alguns códigos utilizados para criar as animações de física e matemática do canal.
 
 ## Sobre o Canal
 O **Celestial Equations** é um canal criado por mim, dedicado à popularização da ciência, abordando temas de física,matemática e tecnoclogia de forma visual e intuitiva, utilizando a biblioteca **Manim** para criar animações educacionais.
